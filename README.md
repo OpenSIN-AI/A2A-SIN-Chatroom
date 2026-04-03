@@ -1,95 +1,38 @@
-# SIN-Chatroom — Universal Messenger Bridge Hub
+# A2A-SIN-Chatroom
 
-**One platform to rule them all.** SIN-Chatroom connects ALL 37+ messaging platforms through Matrix bridges — hosted on a free Hugging Face VM with Cloudflare Tunnel.
+> A2A agent for Chatroom integration within the OpenSIN ecosystem.
 
-## Why SIN-Chatroom?
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Stars](https://img.shields.io/github/stars/OpenSIN-AI/A2A-SIN-Chatroom)](https://github.com/OpenSIN-AI/A2A-SIN-Chatroom)
 
-Instead of 37 separate agents, SIN-Chatroom uses **Matrix as the universal protocol** — connecting every messenger through bridges. End users get ONE chat interface that talks to EVERY platform.
+## Overview
 
-### Architecture
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    SIN-Chatroom (HF VM)                      │
-│                                                              │
-│  ┌──────────────┐    ┌──────────────────────────────────┐   │
-│  │   Synapse    │◄──►│        Matrix Bridges            │   │
-│  │  Homeserver  │    │                                  │   │
-│  └──────┬───────┘    │  WhatsApp  Telegram  Signal      │   │
-│         │            │  iMessage  Teams     Slack        │   │
-│         │            │  Instagram Discord   SMS          │   │
-│         │            │  Email     IRC       LINE         │   │
-│         │            │  WeChat    Zoom      Nostr        │   │
-│         │            │  Xbox      PSN       Nintendo     │   │
-│         │            │  ...and 25 more bridges           │   │
-│         │            └──────────────────────────────────┘   │
-│         │                                                    │
-│  ┌──────▼───────┐                                           │
-│  │  Cloudflare  │  ◄── Public Access (free)                 │
-│  │   Tunnel     │                                           │
-│  └──────────────┘                                           │
-└─────────────────────────────────────────────────────────────┘
-         ▲
-         │ Users connect via ANY Matrix client
-         │ (Element, FluffyChat, Nheko, etc.)
-```
+This repository provides an Agent-to-Agent (A2A) integration for Chatroom, enabling seamless communication and automation within the OpenSIN-AI ecosystem.
 
 ## Quick Start
 
-### 1. Deploy on Hugging Face (Free)
-
 ```bash
-cd SIN-Chatroom
-./scripts/deploy-hf.sh
+git clone https://github.com/OpenSIN-AI/A2A-SIN-Chatroom.git
+cd A2A-SIN-Chatroom
+npm install
+npm start
 ```
 
-### 2. Configure Cloudflare Tunnel
+## Features
 
-```bash
-./scripts/setup-cloudflare-tunnel.sh
-```
+- A2A protocol support for Chatroom
+- Automated message routing
+- Integration with OpenSIN MCP servers
+- Full observability via OpenSIN-Ledger
 
-### 3. Connect Your Messengers
+## Architecture
 
-```bash
-# WhatsApp
-./bridges/whatsapp/setup.sh
+This agent connects to the OpenSIN orchestrator and handles Chatroom-specific messaging through the A2A protocol.
 
-# Telegram
-./bridges/telegram/setup.sh
+## Contributing
 
-# Signal
-./bridges/signal/setup.sh
-
-# All bridges
-./scripts/enable-all-bridges.sh
-```
-
-### 4. Chat!
-
-Open Element (or any Matrix client), login to your SIN-Chatroom, and start chatting across ALL platforms from ONE interface.
-
-## Supported Bridges (37+)
-
-| Category | Bridges |
-|---|---|
-| **Messenger** | WhatsApp, Telegram, Signal, iMessage, BlueBubbles, Beeper, SMS, Email |
-| **Social Media** | X/Twitter, Reddit, Instagram, TikTok, YouTube, Medium, LinkedIn, Nostr |
-| **Enterprise** | Slack, Teams, Google Chat, Google Apps, Feishu, Zoom, WebChat |
-| **Gaming** | Xbox, PlayStation, Nintendo |
-| **Protocols** | Matrix, IRC, LINE, WeChat |
-
-## Why This Beats OpenClaw
-
-| Feature | OpenClaw | SIN-Chatroom |
-|---|---|---|
-| **Architecture** | 25 separate bots | 1 Matrix server + bridges |
-| **User Experience** | Switch between bots | ONE chat interface |
-| **Cross-Platform** | No | ✅ WhatsApp → Telegram → Signal |
-| **Hosting** | Self-hosted only | Free HF VM + Cloudflare |
-| **Setup Time** | Hours per platform | 10 minutes for ALL |
-| **Cost** | Multiple servers | FREE (HF + Cloudflare) |
+See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 
-MIT — Copyright (c) 2026 OpenSIN-AI
+MIT — See [LICENSE](LICENSE).
