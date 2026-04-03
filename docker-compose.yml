@@ -1,0 +1,123 @@
+version: '3.8'
+
+services:
+  # Matrix Homeserver
+  synapse:
+    image: matrixdotorg/synapse:latest
+    container_name: sin-chatroom-synapse
+    restart: unless-stopped
+    ports:
+      - "8008:8008"
+    volumes:
+      - ./config/synapse:/data
+      - synapse-data:/data
+    environment:
+      - SYNAPSE_SERVER_NAME=${MATRIX_SERVER_NAME:-chat.opensin.ai}
+      - SYNAPSE_REPORT_STATS=yes
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8008/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Element Web Client
+  element:
+    image: vectorim/element-web:latest
+    container_name: sin-chatroom-element
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      - ./config/element/config.json:/app/config.json:ro
+
+  # WhatsApp Bridge (mautrix-whatsapp)
+  whatsapp-bridge:
+    image: dock.mau.dev/mautrix/whatsapp:latest
+    container_name: sin-bridge-whatsapp
+    restart: unless-stopped
+    volumes:
+      - ./bridges/whatsapp:/data
+    depends_on:
+      - synapse
+
+  # Telegram Bridge (mautrix-telegram)
+  telegram-bridge:
+    image: dock.mau.dev/mautrix/telegram:latest
+    container_name: sin-bridge-telegram
+    restart: unless-stopped
+    volumes:
+      - ./bridges/telegram:/data
+    depends_on:
+      - synapse
+
+  # Signal Bridge (mautrix-signal)
+  signal-bridge:
+    image: dock.mau.dev/mautrix/signal:latest
+    container_name: sin-bridge-signal
+    restart: unless-stopped
+    volumes:
+      - ./bridges/signal:/data
+    depends_on:
+      - synapse
+
+  # Discord Bridge (mautrix-discord)
+  discord-bridge:
+    image: dock.mau.dev/mautrix/discord:latest
+    container_name: sin-bridge-discord
+    restart: unless-stopped
+    volumes:
+      - ./bridges/discord:/data
+    depends_on:
+      - synapse
+
+  # Slack Bridge (mautrix-slack)
+  slack-bridge:
+    image: dock.mau.dev/mautrix/slack:latest
+    container_name: sin-bridge-slack
+    restart: unless-stopped
+    volumes:
+      - ./bridges/slack:/data
+    depends_on:
+      - synapse
+
+  # Instagram Bridge (mautrix-instagram)
+  instagram-bridge:
+    image: dock.mau.dev/mautrix/instagram:latest
+    container_name: sin-bridge-instagram
+    restart: unless-stopped
+    volumes:
+      - ./bridges/instagram:/data
+    depends_on:
+      - synapse
+
+  # IRC Bridge (matrix-appservice-irc)
+  irc-bridge:
+    image: matrixdotorg/matrix-appservice-irc:latest
+    container_name: sin-bridge-irc
+    restart: unless-stopped
+    volumes:
+      - ./bridges/irc:/data
+    depends_on:
+      - synapse
+
+  # Email Bridge (matrix-appservice-email)
+  email-bridge:
+    image: dock.mau.dev/matrix-appservice-email:latest
+    container_name: sin-bridge-email
+    restart: unless-stopped
+    volumes:
+      - ./bridges/email:/data
+    depends_on:
+      - synapse
+
+  # Cloudflare Tunnel
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: sin-chatroom-tunnel
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run --token ${CLOUDFLARE_TUNNEL_TOKEN}
+    environment:
+      - CLOUDFLARE_TUNNEL_TOKEN=${CLOUDFLARE_TUNNEL_TOKEN}
+
+volumes:
+  synapse-data:

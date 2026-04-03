@@ -1,0 +1,34 @@
+server_name: "${MATRIX_SERVER_NAME}"
+pid_file: /data/homeserver.pid
+listeners:
+  - port: 8008
+    tls: false
+    type: http
+    x_forwarded: true
+    resources:
+      - names: [client, federation]
+        compress: false
+database:
+  name: sqlite3
+  args:
+    database: /data/homeserver.db
+log_config: "/data/${MATRIX_SERVER_NAME}.log.config"
+media_store_path: /data/media_store
+registration_shared_secret: "${REGISTRATION_SHARED_SECRET}"
+report_stats: true
+macaroon_secret_key: "${MACAROON_SECRET_KEY}"
+form_secret: "${FORM_SECRET}"
+signing_key_path: "/data/${MATRIX_SERVER_NAME}.signing.key"
+trusted_key_servers:
+  - server_name: "matrix.org"
+enable_registration: true
+federation_domain_whitelist: ~
+app_service_config_files:
+  - /data/whatsapp-registration.yaml
+  - /data/telegram-registration.yaml
+  - /data/signal-registration.yaml
+  - /data/discord-registration.yaml
+  - /data/slack-registration.yaml
+  - /data/instagram-registration.yaml
+  - /data/irc-registration.yaml
+  - /data/email-registration.yaml

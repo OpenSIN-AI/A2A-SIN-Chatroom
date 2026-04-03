@@ -1,0 +1,11 @@
+{
+  "default_server_config": {
+    "m.homeserver": { "base_url": "https://chat.opensin.ai" },
+    "m.identity_server": { "base_url": "https://vector.im" }
+  },
+  "brand": "SIN-Chatroom",
+  "disable_custom_urls": false,
+  "disable_guests": false,
+  "feature_custom_themes": true,
+  "room_directory": { "servers": ["chat.opensin.ai", "matrix.org"] }
+}
