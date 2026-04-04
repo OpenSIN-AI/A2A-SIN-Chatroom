@@ -2,7 +2,7 @@
   "name": "@opensin/sin-chatroom",
   "version": "1.0.0",
   "type": "module",
-  "description": "Universal Messenger Bridge Hub \u2014 Connect ALL 37+ platforms through Matrix",
+  "description": "Universal Messenger Bridge Hub — Connect ALL 37+ platforms through Matrix",
   "scripts": {
     "deploy": "./scripts/deploy-hf.sh",
     "tunnel": "./scripts/setup-cloudflare-tunnel.sh",
