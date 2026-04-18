@@ -4,7 +4,7 @@
 
 [![SIN Chatroom](https://img.shields.io/badge/SIN%20Chatroom-latest-green)](https://a2a.delqhi.com/agents/sin-chatroom)
 [![Node 18+](https://img.shields.io/badge/node-18%2B-339933)](https://nodejs.org)
-[![License](https://img.shields.io/badge/License-Proprietary-red)](https://my.openSIN.ai)
+[![License](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](LICENSE)
 
 ## Overview
 
@@ -36,8 +36,8 @@ Der Chatroom Agent überwacht den Login-Status aller 12 SIN Platform Agents:
 ```bash
 git clone https://github.com/OpenSIN-AI/A2A-SIN-Chatroom.git
 cd A2A-SIN-Chatroom
-npm install
-npm start
+bun install
+bun start
 ```
 
 ## Features
@@ -59,7 +59,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 
-Proprietary — Part of SIN Solver platform (https://my.openSIN.ai)
+Apache-2.0 — See [LICENSE](LICENSE).
 
 ## 📚 Documentation
 
